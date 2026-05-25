@@ -15,6 +15,10 @@ View your app in AI Studio: https://ai.studio/apps/08e3b128-85b5-452e-be88-2f087
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+2. Create a local env file from `.env.example` and set your keys in [.env.local](.env.local):
+
+   - `OPENROUTER_API_KEY` — OpenRouter API key (or other model provider key)
+   - `SUPABASE_URL` and `SUPABASE_ANON_KEY` — Supabase project URL and anon key
+   - `N8N_API_KEY` — n8n API key (if used by workflows)
 3. Run the app:
    `npm run dev`
