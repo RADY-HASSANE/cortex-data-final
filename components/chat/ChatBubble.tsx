@@ -46,7 +46,7 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, onOptionSelect 
         {/* Avatar Bot */}
         {!isUser && (
           <div className="flex-shrink-0 mr-3 mt-1">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-white border border-brand-100 shadow-sm">
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-white border border-brand-200 shadow-sm">
                <span className="text-brand-600">🤖</span>
             </div>
           </div>
@@ -55,16 +55,16 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, onOptionSelect 
         <div className={`
           max-w-[85%] md:max-w-[75%] rounded-2xl p-4 shadow-sm relative transition-all duration-300
           ${isUser 
-            ? 'bg-gradient-to-br from-brand-600 to-brand-700 text-white rounded-tr-sm' 
+            ? 'bg-gradient-to-br from-brand-600 via-brand-700 to-brand-800 text-white rounded-tr-sm ring-1 ring-brand-500/20' 
             : message.isError 
-              ? 'bg-red-50 text-red-800 border border-red-200 rounded-tl-sm'
-              : 'bg-white text-gray-800 border border-gray-100 rounded-tl-sm shadow-soft'
+              ? 'bg-red-50 text-red-900 border border-red-200 rounded-tl-sm'
+              : 'bg-white text-slate-900 border border-slate-200 rounded-tl-sm shadow-soft'
           }
         `}>
           {message.audioUrl && <AudioPlayer url={message.audioUrl} isUser={isUser} />}
 
           {message.text && (
-            <div className={isUser ? "text-sm md:text-base font-medium" : "relative"}>
+            <div className={isUser ? "text-sm md:text-base font-medium text-white" : "relative text-slate-900"}>
               {isUser ? message.text : <MarkdownRenderer content={message.text} />}
             </div>
           )}
@@ -72,7 +72,7 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, onOptionSelect 
           {/* Rendu dynamique du module s'il existe */}
           {ModuleComponent && <ModuleComponent data={message.moduleData} />}
 
-          <div className={`flex items-center gap-2 mt-2 text-[10px] ${isUser ? 'justify-end text-brand-100' : 'justify-start text-gray-300'}`}>
+          <div className={`flex items-center gap-2 mt-2 text-[10px] ${isUser ? 'justify-end text-white/80' : 'justify-start text-slate-400'}`}>
             <span>{new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           </div>
         </div>

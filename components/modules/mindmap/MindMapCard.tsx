@@ -12,7 +12,7 @@ export const MindMapCard: React.FC<MindMapCardProps> = ({ data }) => {
   const branches = Array.isArray(mindmap_data.branches) ? mindmap_data.branches : [];
 
   return (
-    <div className="mt-6 w-full animate-fade-in border-t border-gray-100 pt-6">
+    <div className="mt-6 w-full animate-fade-in border-t border-gray-100 pt-6 text-slate-900">
       {/* Header */}
       <div className="flex items-center gap-4 mb-8">
         <div className="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center text-2xl shadow-sm border border-brand-100">

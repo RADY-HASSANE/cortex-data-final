@@ -9,7 +9,7 @@ interface AnalysisCardProps {
 
 export const AnalysisCard: React.FC<AnalysisCardProps> = ({ data }) => {
   return (
-    <div className="mt-4 flex flex-col gap-5 animate-fade-in border-t border-gray-100 pt-6">
+    <div className="mt-4 flex flex-col gap-5 animate-fade-in border-t border-gray-100 pt-6 text-slate-900">
       <div className="flex items-center gap-4">
         <div className="bg-emerald-100 text-emerald-600 p-3 rounded-2xl shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

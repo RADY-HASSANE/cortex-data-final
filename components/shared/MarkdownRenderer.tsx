@@ -34,7 +34,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) =
   };
 
   return (
-    <div className="text-sm md:text-base leading-relaxed space-y-3">
+    <div className="text-sm md:text-base leading-relaxed space-y-3 text-slate-900">
       {parts.map((part, index) => {
         if (part.startsWith('```')) {
           const match = part.match(/```(\w*)\n([\s\S]*?)```/);
