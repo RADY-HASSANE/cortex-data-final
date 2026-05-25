@@ -46,8 +46,8 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, onOptionSelect 
         {/* Avatar Bot */}
         {!isUser && (
           <div className="flex-shrink-0 mr-3 mt-1">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 shadow-sm">
-               <span className="text-white">🤖</span>
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-white border border-brand-100 shadow-sm">
+               <span className="text-brand-600">🤖</span>
             </div>
           </div>
         )}
@@ -55,10 +55,10 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, onOptionSelect 
         <div className={`
           max-w-[85%] md:max-w-[75%] rounded-2xl p-4 shadow-sm relative transition-all duration-300
           ${isUser 
-            ? 'bg-white/15 backdrop-blur-md text-white border border-white/20 rounded-tr-sm' 
+            ? 'bg-gradient-to-br from-brand-600 to-brand-700 text-white rounded-tr-sm' 
             : message.isError 
-              ? 'bg-red-500/15 text-white border border-red-300/20 rounded-tl-sm backdrop-blur-md'
-              : 'bg-white/10 backdrop-blur-md text-white border border-white/15 rounded-tl-sm shadow-soft'
+              ? 'bg-red-50 text-red-800 border border-red-200 rounded-tl-sm'
+              : 'bg-white text-gray-800 border border-gray-100 rounded-tl-sm shadow-soft'
           }
         `}>
           {message.audioUrl && <AudioPlayer url={message.audioUrl} isUser={isUser} />}
@@ -72,7 +72,7 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, onOptionSelect 
           {/* Rendu dynamique du module s'il existe */}
           {ModuleComponent && <ModuleComponent data={message.moduleData} />}
 
-          <div className={`flex items-center gap-2 mt-2 text-[10px] ${isUser ? 'justify-end text-white/70' : 'justify-start text-white/60'}`}>
+          <div className={`flex items-center gap-2 mt-2 text-[10px] ${isUser ? 'justify-end text-brand-100' : 'justify-start text-gray-300'}`}>
             <span>{new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           </div>
         </div>
