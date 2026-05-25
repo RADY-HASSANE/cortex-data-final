@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
+import Swal from 'sweetalert2';
 import { useAuth } from './context/AuthContext';
 import { useToast } from './context/ToastContext';
 import { AuthScreen } from './components/auth/AuthScreen';
@@ -96,7 +97,24 @@ export default function App() {
 
   const handleDeleteSession = async (id: string, e: React.MouseEvent) => {
       e.stopPropagation();
-      if (isLoading || !user || !window.confirm(t('sidebar.deleteConfirm'))) return;
+
+      if (isLoading || !user) return;
+
+      const result = await Swal.fire({
+        title: t('sidebar.deleteConfirm'),
+        text: 'Cette action supprimera la conversation sélectionnée.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Supprimer',
+        cancelButtonText: t('common.cancel'),
+        reverseButtons: true,
+        focusCancel: true,
+        confirmButtonColor: '#ef4444',
+        cancelButtonColor: '#64748b',
+      });
+
+      if (!result.isConfirmed) return;
+
       setSessions(prev => prev.filter(s => s.id !== id));
       if (currentSessionId === id) handleNewChat();
       try {
