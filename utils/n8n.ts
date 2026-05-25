@@ -94,7 +94,7 @@ export const sendToN8n = async (
   audioBase64?: string,
   requestType?: string
 ): Promise<string> => {
-  const webhookUrl = "https://hhass.app.n8n.cloud/webhook-test/cfa7ecea-4805-48e3-8284-1efac362d8f8";
+  const webhookUrl = process.env.N8N_WEBHOOK_URL || import.meta.env.VITE_N8N_WEBHOOK_URL || '';
   const payload: any = { 
     sessionId, 
     userId, 
@@ -105,6 +105,8 @@ export const sendToN8n = async (
   if (audioBase64) {
     payload.audio = audioBase64;
   }
+
+  if (!webhookUrl) throw new Error('N8N webhook URL not configured. Set N8N_WEBHOOK_URL in your environment.');
 
   for (let i = 0; i <= retries; i++) {
     try {
