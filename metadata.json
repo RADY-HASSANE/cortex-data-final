@@ -1,0 +1,7 @@
+{
+  "name": "Cortex Data",
+  "description": "A sophisticated, education-focused chatbot specializing in Data Science concepts, best practices, and code generation, featuring a polished UX/UI.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
