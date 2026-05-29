@@ -30,7 +30,16 @@ export default {
     "toLogin": "Already have an account?",
     "linkLogin": "Log in",
     "linkSignUp": "Sign up",
-    "secured": "Secured by Supabase"
+    "secured": "Secured by Supabase",
+    "confirmationSent": "A confirmation link has been sent by email. Check your inbox to activate your account.",
+    "loginSuccess": "Login successful.",
+    "signupSuccess": "Account created successfully.",
+    "loginError": "Unable to sign in. Check your email and password.",
+    "signupError": "Unable to create the account. Check the information entered.",
+    "invalidCredentials": "Incorrect email or password.",
+    "emailNotConfirmed": "Your email is not confirmed yet. Please check the link sent by email.",
+    "emailAlreadyUsed": "This email address is already in use.",
+    "weakPassword": "Password must contain at least 6 characters."
   },
   "profile": {
     "title": "My Profile",

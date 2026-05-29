@@ -1,22 +1,48 @@
 
-import React, { useState } from 'react';
 import { Bot } from 'lucide-react';
-import { supabase } from '../../services/supabase';
+import React, { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import { useToast } from '../../context/ToastContext';
+import { supabase } from '../../services/supabase';
 
 export const AuthScreen: React.FC = () => {
   const { t } = useLanguage();
+  const { addToast } = useToast();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const getAuthErrorMessage = (err: any) => {
+    const raw = (err?.message || '').toLowerCase();
+
+    if (raw.includes('invalid login credentials') || raw.includes('invalid credentials') || raw.includes('authentication failed')) {
+      return t('auth.invalidCredentials');
+    }
+
+    if (raw.includes('email not confirmed') || raw.includes('email address not confirmed') || raw.includes('email_not_confirmed')) {
+      return t('auth.emailNotConfirmed');
+    }
+
+    if (raw.includes('user already registered') || raw.includes('already exists') || raw.includes('email already registered')) {
+      return t('auth.emailAlreadyUsed');
+    }
+
+    if (raw.includes('password should be at least') || raw.includes('password must be at least') || raw.includes('weak password')) {
+      return t('auth.weakPassword');
+    }
+
+    return isLogin ? t('auth.loginError') : t('auth.signupError');
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    setSuccessMessage(null);
 
     try {
       if (isLogin) {
@@ -25,18 +51,27 @@ export const AuthScreen: React.FC = () => {
           password,
         });
         if (error) throw error;
+        addToast(t('auth.loginSuccess'), 'success');
       } else {
+        const redirectTo = typeof window !== 'undefined' ? `${window.location.origin}/` : undefined;
         const { error } = await (supabase.auth as any).signUp({
           email,
           password,
           options: {
+            emailRedirectTo: redirectTo,
             data: { name, role: 'user' }
           }
         });
         if (error) throw error;
+
+        setSuccessMessage(t('auth.confirmationSent'));
+        addToast(t('auth.confirmationSent'), 'info');
+        setIsLogin(true);
       }
     } catch (err: any) {
-      setError(err.message || t('common.error'));
+      const message = getAuthErrorMessage(err);
+      setError(message);
+      addToast(message, 'error');
     } finally {
       setLoading(false);
     }
@@ -102,6 +137,12 @@ export const AuthScreen: React.FC = () => {
               />
             </div>
 
+            {successMessage && (
+              <div className="p-3 bg-green-50 text-green-700 text-xs font-medium rounded-lg border border-green-100 animate-slide-up">
+                {successMessage}
+              </div>
+            )}
+
             {error && (
               <div className="p-3 bg-red-50 text-red-600 text-xs font-medium rounded-lg border border-red-100 animate-slide-up">
                 {error}
@@ -126,6 +167,7 @@ export const AuthScreen: React.FC = () => {
               onClick={() => {
                 setIsLogin(!isLogin);
                 setError(null);
+                setSuccessMessage(null);
               }}
               className="text-sm font-medium text-gray-500 hover:text-brand-600 transition-colors"
             >
