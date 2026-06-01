@@ -67,7 +67,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({ data }) => {
               <span className="w-1.5 h-6 bg-brand-400 rounded-full"></span>
               <h4 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">{t('common.solution')}</h4>
             </div>
-            <div className="text-slate-100 text-sm">
+            <div className="text-white text-sm">
               <MarkdownRenderer content={data.solution} />
             </div>
           </div>

@@ -2,10 +2,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useToast } from '../../context/ToastContext';
-import { Mic, Trash2, Check, Send } from 'lucide-react';
+import { Mic, Trash2, Check, Send, X } from 'lucide-react';
 
 export const ChatInput: React.FC<any> = ({ 
-    input, setInput, onSend, isLoading, isDisabled, placeholder 
+    input, setInput, onSend, onCancel, isLoading, isDisabled, placeholder 
 }) => {
     const { t } = useLanguage();
     const { addToast } = useToast();
@@ -210,33 +210,46 @@ export const ChatInput: React.FC<any> = ({
                             />
                             
                             <div className="flex items-center gap-1.5 pl-2">
-                                {/* Voice recorder trigger button */}
-                                <button
-                                    type="button"
-                                    onClick={startRecording}
-                                    disabled={isLoading || isDisabled}
-                                    className={`mb-1 p-3 rounded-2xl transition-all ${
-                                        isLoading || isDisabled
-                                            ? 'bg-gray-50 text-gray-300 cursor-not-allowed'
-                                            : 'text-gray-500 hover:text-brand-600 hover:bg-brand-50'
-                                    }`}
-                                    title="Enregistrer un message vocal"
-                                >
-                                    <Mic size={20} />
-                                </button>
+                                {isLoading ? (
+                                    <button
+                                        type="button"
+                                        onClick={() => onCancel && onCancel()}
+                                        className="mb-1 p-3 rounded-2xl transition-colors bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                        title={"Annuler la requête"}
+                                    >
+                                        <X size={18} />
+                                    </button>
+                                ) : (
+                                    <>
+                                        {/* Voice recorder trigger button */}
+                                        <button
+                                            type="button"
+                                            onClick={startRecording}
+                                            disabled={isLoading || isDisabled}
+                                            className={`mb-1 p-3 rounded-2xl transition-all ${
+                                                isLoading || isDisabled
+                                                    ? 'bg-gray-50 text-gray-300 cursor-not-allowed'
+                                                    : 'text-gray-500 hover:text-brand-600 hover:bg-brand-50'
+                                            }`}
+                                            title="Enregistrer un message vocal"
+                                        >
+                                            <Mic size={20} />
+                                        </button>
 
-                                {/* Text Send Button */}
-                                <button
-                                    onClick={() => onSend()}
-                                    disabled={!input.trim() || isLoading || isDisabled}
-                                    className={`mb-1 p-3 rounded-2xl transition-all ${
-                                        input.trim() && !isLoading && !isDisabled
-                                            ? 'bg-brand-600 text-white shadow-glow hover:bg-brand-700' 
-                                            : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                    }`}
-                                >
-                                    <Send size={20} />
-                                </button>
+                                        {/* Text Send Button */}
+                                        <button
+                                            onClick={() => onSend()}
+                                            disabled={!input.trim() || isLoading || isDisabled}
+                                            className={`mb-1 p-3 rounded-2xl transition-all ${
+                                                input.trim() && !isLoading && !isDisabled
+                                                    ? 'bg-brand-600 text-white shadow-glow hover:bg-brand-700' 
+                                                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                            }`}
+                                        >
+                                            <Send size={20} />
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         </>
                     )}
