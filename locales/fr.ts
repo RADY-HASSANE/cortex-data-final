@@ -134,7 +134,7 @@ export default {
     "tutorialPrompt": "Montre-moi comment écrire une boucle for en Python.",
     "tutorialDesc": "Cliquez pour démarrer",
     "mindmap": "Python facile",
-    "mindmapPrompt": "Explique simplement la différence entre liste et dictionnaire en Python.",
+    "mindmapPrompt": "Peux-tu générer une carte mentale des fondamentaux de la Data Science pour m'aider à visualiser le domaine ?",
     "mindmapDesc": "Visualiser les concepts",
     "stats": "Statistiques Perso",
     "statsPrompt": "Comment puis-je utiliser les statistiques pour analyser mes données personnelles (Quantified Self) ?",
